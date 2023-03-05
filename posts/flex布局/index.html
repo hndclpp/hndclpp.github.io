@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Flex布局 | 岛屿</title>
+<meta name="keywords" content="Flex">
+<meta name="description" content="默认X轴是主轴，Y轴是侧轴
+以下操作方式需写在父盒里面，即上图中的 Flex container
+1. flex-direction 属性 ​	flex-direction 属性用来设置主轴方向
+flex-direction: row; 默认主轴为x轴，默认从左到右
+​	flex-direction: row-reverse; 修改x轴子元素排列顺序
+​	flex-direction: column; 设置主轴为y轴，默认从上到下
+​	flex-direction: column-reverse; 修改y轴子元素排列顺序
+​	2. justify-content属性 这里默认主轴为x轴
+justify-content属性用来设置主轴上子元素的排列方式
+justify-content: flex-start; 从头部开始排列
+​	justify-content: flex-end; 从尾部开始排列
+​	justify-content: center; 居中排列
+​	justify-content: space-around; 平分剩余空间
+​	justify-content: space-between;先两边贴边，再平分剩余空间
+​	3. flex-wrap 属性 就是换行用的
+flex-wrap默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小
+​	flex-wrap: wrap; 父盒子装不下子元素的时候换行
+​	4. align-items属性 align-items 用来设置单行子元素在侧轴上(默认是y轴)的排列方式
+align-items: flex-start; 默认值 从上到下
+​	align-items: flex-end; 从下到上">
+<meta name="author" content="Dog Two">
+<link rel="canonical" href="https://hndclpp.github.io/posts/flex%E5%B8%83%E5%B1%80/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://hndclpp.github.io/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hndclpp.github.io/img/48.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hndclpp.github.io/img/64.ico">
+<link rel="apple-touch-icon" href="https://hndclpp.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hndclpp.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Flex布局" />
+<meta property="og:description" content="默认X轴是主轴，Y轴是侧轴
+以下操作方式需写在父盒里面，即上图中的 Flex container
+1. flex-direction 属性 ​	flex-direction 属性用来设置主轴方向
+flex-direction: row; 默认主轴为x轴，默认从左到右
+​	flex-direction: row-reverse; 修改x轴子元素排列顺序
+​	flex-direction: column; 设置主轴为y轴，默认从上到下
+​	flex-direction: column-reverse; 修改y轴子元素排列顺序
+​	2. justify-content属性 这里默认主轴为x轴
+justify-content属性用来设置主轴上子元素的排列方式
+justify-content: flex-start; 从头部开始排列
+​	justify-content: flex-end; 从尾部开始排列
+​	justify-content: center; 居中排列
+​	justify-content: space-around; 平分剩余空间
+​	justify-content: space-between;先两边贴边，再平分剩余空间
+​	3. flex-wrap 属性 就是换行用的
+flex-wrap默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小
+​	flex-wrap: wrap; 父盒子装不下子元素的时候换行
+​	4. align-items属性 align-items 用来设置单行子元素在侧轴上(默认是y轴)的排列方式
+align-items: flex-start; 默认值 从上到下
+​	align-items: flex-end; 从下到上" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hndclpp.github.io/posts/flex%E5%B8%83%E5%B1%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-05T13:20:02+08:00" />
+<meta property="article:modified_time" content="2023-03-05T13:20:02+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Flex布局"/>
+<meta name="twitter:description" content="默认X轴是主轴，Y轴是侧轴
+以下操作方式需写在父盒里面，即上图中的 Flex container
+1. flex-direction 属性 ​	flex-direction 属性用来设置主轴方向
+flex-direction: row; 默认主轴为x轴，默认从左到右
+​	flex-direction: row-reverse; 修改x轴子元素排列顺序
+​	flex-direction: column; 设置主轴为y轴，默认从上到下
+​	flex-direction: column-reverse; 修改y轴子元素排列顺序
+​	2. justify-content属性 这里默认主轴为x轴
+justify-content属性用来设置主轴上子元素的排列方式
+justify-content: flex-start; 从头部开始排列
+​	justify-content: flex-end; 从尾部开始排列
+​	justify-content: center; 居中排列
+​	justify-content: space-around; 平分剩余空间
+​	justify-content: space-between;先两边贴边，再平分剩余空间
+​	3. flex-wrap 属性 就是换行用的
+flex-wrap默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小
+​	flex-wrap: wrap; 父盒子装不下子元素的时候换行
+​	4. align-items属性 align-items 用来设置单行子元素在侧轴上(默认是y轴)的排列方式
+align-items: flex-start; 默认值 从上到下
+​	align-items: flex-end; 从下到上"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hndclpp.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Flex布局",
+      "item": "https://hndclpp.github.io/posts/flex%E5%B8%83%E5%B1%80/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Flex布局",
+  "name": "Flex布局",
+  "description": "默认X轴是主轴，Y轴是侧轴\n以下操作方式需写在父盒里面，即上图中的 Flex container\n1. flex-direction 属性 ​\tflex-direction 属性用来设置主轴方向\nflex-direction: row; 默认主轴为x轴，默认从左到右\n​\tflex-direction: row-reverse; 修改x轴子元素排列顺序\n​\tflex-direction: column; 设置主轴为y轴，默认从上到下\n​\tflex-direction: column-reverse; 修改y轴子元素排列顺序\n​\t2. justify-content属性 这里默认主轴为x轴\njustify-content属性用来设置主轴上子元素的排列方式\njustify-content: flex-start; 从头部开始排列\n​\tjustify-content: flex-end; 从尾部开始排列\n​\tjustify-content: center; 居中排列\n​\tjustify-content: space-around; 平分剩余空间\n​\tjustify-content: space-between;先两边贴边，再平分剩余空间\n​\t3. flex-wrap 属性 就是换行用的\nflex-wrap默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小\n​\tflex-wrap: wrap; 父盒子装不下子元素的时候换行\n​\t4. align-items属性 align-items 用来设置单行子元素在侧轴上(默认是y轴)的排列方式\nalign-items: flex-start; 默认值 从上到下\n​\talign-items: flex-end; 从下到上",
+  "keywords": [
+    "Flex"
+  ],
+  "articleBody": " 默认X轴是主轴，Y轴是侧轴\n以下操作方式需写在父盒里面，即上图中的 Flex container\n1. flex-direction 属性 ​\tflex-direction 属性用来设置主轴方向\nflex-direction: row; 默认主轴为x轴，默认从左到右\n​\tflex-direction: row-reverse; 修改x轴子元素排列顺序\n​\tflex-direction: column; 设置主轴为y轴，默认从上到下\n​\tflex-direction: column-reverse; 修改y轴子元素排列顺序\n​\t2. justify-content属性 这里默认主轴为x轴\njustify-content属性用来设置主轴上子元素的排列方式\njustify-content: flex-start; 从头部开始排列\n​\tjustify-content: flex-end; 从尾部开始排列\n​\tjustify-content: center; 居中排列\n​\tjustify-content: space-around; 平分剩余空间\n​\tjustify-content: space-between;先两边贴边，再平分剩余空间\n​\t3. flex-wrap 属性 就是换行用的\nflex-wrap默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小\n​\tflex-wrap: wrap; 父盒子装不下子元素的时候换行\n​\t4. align-items属性 align-items 用来设置单行子元素在侧轴上(默认是y轴)的排列方式\nalign-items: flex-start; 默认值 从上到下\n​\talign-items: flex-end; 从下到上\n​\talign-items: center; 垂直居中\n​\talign-items: stretch; 拉伸，需要取消子元素的高度才能生效\n​\t5. align-content属性 align-content 用来设置侧轴上多行子元素的排列方式 ,可以看是否换行来判断是单行还是多行，如果出现换行就是多行子元素\nalign-content: flex-start\n​\talign-content: flex-end\n​\talign-content: center\n​\talign-content: space-around\n​\talign-content: space-between\n​\talign-items: stretch\n​\t6. flex-flow属性 flex-flow是 flex-direction 和 flex-wrap属性的复合属性\nflex-flow: row wrap; ",
+  "wordCount" : "112",
+  "inLanguage": "zh",
+  "datePublished": "2023-03-05T13:20:02+08:00",
+  "dateModified": "2023-03-05T13:20:02+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Dog Two"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hndclpp.github.io/posts/flex%E5%B8%83%E5%B1%80/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "岛屿",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hndclpp.github.io/img/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://hndclpp.github.io/" accesskey="h" title="岛屿 (Alt + H)">岛屿</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://hndclpp.github.io/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hndclpp.github.io/posts" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hndclpp.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hndclpp.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hndclpp.github.io/search" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://hndclpp.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://hndclpp.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Flex布局
+    </h1>
+    <div class="post-meta"><span title='2023-03-05 13:20:02 +0800 CST'>2023-03-05</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;Dog Two
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details >
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#1-flex-direction-%e5%b1%9e%e6%80%a7" aria-label="1. flex-direction 属性">1. flex-direction 属性</a></li>
+                    <li>
+                        <a href="#2-justify-content%e5%b1%9e%e6%80%a7" aria-label="2. justify-content属性">2. justify-content属性</a></li>
+                    <li>
+                        <a href="#3-flex-wrap-%e5%b1%9e%e6%80%a7" aria-label="3. flex-wrap 属性">3. flex-wrap 属性</a></li>
+                    <li>
+                        <a href="#4-align-items%e5%b1%9e%e6%80%a7" aria-label="4. align-items属性">4. align-items属性</a></li>
+                    <li>
+                        <a href="#5-align-content%e5%b1%9e%e6%80%a7" aria-label="5. align-content属性">5. align-content属性</a></li>
+                    <li>
+                        <a href="#6-flex-flow%e5%b1%9e%e6%80%a7" aria-label="6. flex-flow属性">6. flex-flow属性</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+  <div class="post-content"><blockquote>
+<p>默认X轴是主轴，Y轴是侧轴</p>
+</blockquote>
+<p><img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SXjs.png" alt="flex1"  />
+</p>
+<blockquote>
+<p>以下操作方式需写在父盒里面，即上图中的 Flex container</p>
+</blockquote>
+<h4 id="1-flex-direction-属性">1. flex-direction 属性<a hidden class="anchor" aria-hidden="true" href="#1-flex-direction-属性">#</a></h4>
+<p>​	<code>flex-direction </code>属性用来设置<strong>主轴</strong>方向</p>
+<ol>
+<li>
+<p><code>flex-direction: row;</code>  默认主轴为x轴，默认从左到右</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SAov.png" alt="image-20230303100105199"  />
+</p>
+</li>
+<li>
+<p><code>flex-direction: row-reverse;</code>  修改x轴子元素排列顺序</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/S4OW.png" alt="image-20230303100922743"  />
+</p>
+</li>
+<li>
+<p><code>flex-direction: column; </code>  设置主轴为y轴，默认从上到下</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SVhO.png" alt="image-20230303100309770"  />
+</p>
+</li>
+<li>
+<p><code>flex-direction: column-reverse; </code> 修改y轴子元素排列顺序</p>
+<p>​	 <img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SObb.png" alt="image-20230303101043003"  />
+</p>
+</li>
+</ol>
+<h4 id="2-justify-content属性">2. justify-content属性<a hidden class="anchor" aria-hidden="true" href="#2-justify-content属性">#</a></h4>
+<blockquote>
+<p>这里默认主轴为x轴</p>
+</blockquote>
+<p><code>justify-content</code>属性用来设置主轴上子元素的排列方式</p>
+<ol>
+<li>
+<p><code>justify-content: flex-start;</code> 从头部开始排列</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/ST8p.png" alt="image-20230303101956689"  />
+</p>
+</li>
+<li>
+<p><code>justify-content: flex-end;</code>  从尾部开始排列</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SdRc.png" alt="image-20230303102144715"  />
+</p>
+</li>
+<li>
+<p><code>      justify-content: center;</code> 居中排列</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SgnX.png" alt="image-20230303102316494"  />
+</p>
+</li>
+<li>
+<p><code>justify-content: space-around;</code> 平分剩余空间</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/S1GK.png" alt="image-20230303102420290"  />
+</p>
+</li>
+<li>
+<p><code> justify-content: space-between;</code>先两边贴边，再平分剩余空间</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/S2oY.png" alt="image-20230303102539057"  />
+</p>
+</li>
+</ol>
+<h4 id="3-flex-wrap-属性">3. flex-wrap 属性<a hidden class="anchor" aria-hidden="true" href="#3-flex-wrap-属性">#</a></h4>
+<p>就是换行用的</p>
+<ol>
+<li>
+<p><code>flex-wrap</code>默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SImG.png" alt="image-20230303103934602"  />
+</p>
+</li>
+<li>
+<p><code>flex-wrap: wrap;</code> 父盒子装不下子元素的时候换行</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SROo.png" alt="image-20230303104246215"  />
+</p>
+</li>
+</ol>
+<h4 id="4-align-items属性">4. align-items属性<a hidden class="anchor" aria-hidden="true" href="#4-align-items属性">#</a></h4>
+<p>align-items 用来设置<strong>单行子元素</strong>在<strong>侧轴</strong>上(默认是y轴)的排列方式</p>
+<ol>
+<li>
+<p><code>align-items: flex-start;</code>  默认值 从上到下</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/Sate.png" alt="image-20230303110011127"  />
+</p>
+</li>
+<li>
+<p><code> align-items: flex-end;</code> 从下到上</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/Si6l.png" alt="image-20230303110104749"  />
+</p>
+</li>
+<li>
+<p><code>align-items: center;</code>  垂直居中</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/Sx85.png" alt="image-20230303110301571"  />
+</p>
+</li>
+<li>
+<p><code>align-items: stretch;</code> 拉伸，<strong>需要取消子元素的高度</strong>才能生效</p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/S3aP.png" alt="image-20230303110455555"  />
+</p>
+</li>
+</ol>
+<h4 id="5-align-content属性">5. align-content属性<a hidden class="anchor" aria-hidden="true" href="#5-align-content属性">#</a></h4>
+<p>align-content 用来设置侧轴上<strong>多行子元素</strong>的排列方式 ,可以看是否换行来判断是单行还是多行，如果出现换行就是多行子元素</p>
+<ol>
+<li>
+<p><code>align-content: flex-start</code></p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/Sbnw.png" alt="image-20230303111726243"  />
+</p>
+</li>
+<li>
+<p><code>align-content: flex-end</code></p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SwGV.png" alt="image-20230303111811935"  />
+</p>
+</li>
+<li>
+<p><code>align-content: center</code></p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/S01J.png" alt="image-20230303111901319"  />
+</p>
+</li>
+<li>
+<p><code>align-content: space-around</code></p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/S7mx.png" alt="image-20230303111952321"  />
+</p>
+</li>
+<li>
+<p><code>align-content: space-between</code></p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/Slv8.png" alt="image-20230303112030046"  />
+</p>
+</li>
+<li>
+<p><code>align-items: stretch</code></p>
+<p>​	<img loading="lazy" src="https://pics.xdm.plus/images/2023/03/03/SmyS.png" alt="image-20230303112159607"  />
+</p>
+</li>
+</ol>
+<h4 id="6-flex-flow属性">6. flex-flow属性<a hidden class="anchor" aria-hidden="true" href="#6-flex-flow属性">#</a></h4>
+<p>flex-flow是 flex-direction 和 flex-wrap属性的复合属性</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">flex-flow</span><span style="color:#f92672">:</span> <span style="color:#f92672">row</span> <span style="color:#f92672">wrap</span><span style="color:#f92672">;</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://hndclpp.github.io/tags/flex/">Flex</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://hndclpp.github.io/">岛屿</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+    <br>
+    <span style="font-weight: bold; ">
+        本网站由
+        <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none !important;" rel="noopener noreferrer" target="_blank">
+            <img src="/img/logo5.png" alt="" style="width: 50px; margin: 0 auto; display: inline-block; vertical-align: middle;">
+        </a> 提供CDN加速/云存储服务
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

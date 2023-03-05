@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on 岛屿</title>
+    <link>https://hndclpp.github.io/posts/</link>
+    <description>Recent content in Posts on 岛屿</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 05 Mar 2023 13:20:02 +0800</lastBuildDate><atom:link href="https://hndclpp.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flex布局</title>
+      <link>https://hndclpp.github.io/posts/flex%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Sun, 05 Mar 2023 13:20:02 +0800</pubDate>
+      
+      <guid>https://hndclpp.github.io/posts/flex%E5%B8%83%E5%B1%80/</guid>
+      <description>默认X轴是主轴，Y轴是侧轴
+以下操作方式需写在父盒里面，即上图中的 Flex container
+1. flex-direction 属性 ​	flex-direction 属性用来设置主轴方向
+flex-direction: row; 默认主轴为x轴，默认从左到右
+​	flex-direction: row-reverse; 修改x轴子元素排列顺序
+​	flex-direction: column; 设置主轴为y轴，默认从上到下
+​	flex-direction: column-reverse; 修改y轴子元素排列顺序
+​	2. justify-content属性 这里默认主轴为x轴
+justify-content属性用来设置主轴上子元素的排列方式
+justify-content: flex-start; 从头部开始排列
+​	justify-content: flex-end; 从尾部开始排列
+​	justify-content: center; 居中排列
+​	justify-content: space-around; 平分剩余空间
+​	justify-content: space-between;先两边贴边，再平分剩余空间
+​	3. flex-wrap 属性 就是换行用的
+flex-wrap默认是不换行的，如果撑满父盒子，会导致子元素宽度缩小
+​	flex-wrap: wrap; 父盒子装不下子元素的时候换行
+​	4. align-items属性 align-items 用来设置单行子元素在侧轴上(默认是y轴)的排列方式
+align-items: flex-start; 默认值 从上到下
+​	align-items: flex-end; 从下到上</description>
+    </item>
+    
+  </channel>
+</rss>
